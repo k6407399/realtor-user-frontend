@@ -1,4 +1,3 @@
-// routesConfig.js
 const routesConfig = {
   // User Routes
   user: {
@@ -7,6 +6,11 @@ const routesConfig = {
     profile: {
       fetch: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USER_PROFILE_FETCH}`,
       update: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USER_PROFILE_UPDATE}`,
+    },
+    appointments: {
+      fetch: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USER_APPOINTMENTS_FETCH}`,
+      update: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USER_APPOINTMENTS_UPDATE}`,
+      create: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_USER_APPOINTMENTS_CREATE}`,
     },
   },
 
@@ -34,16 +38,19 @@ const routesConfig = {
 
   // Likes Routes
   likes: {
+    fetch: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_LIKES_FETCH}`,
     add: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_LIKES_ADD}`,
     remove: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_LIKES_REMOVE}`,
   },
 
   // Wishlist Routes
   wishlist: {
+    fetch: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_WISHLIST_FETCH}`,
     add: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_WISHLIST_ADD}`,
     remove: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_WISHLIST_REMOVE}`,
   },
 };
 
 console.log("Routes Config Loaded:", routesConfig);
+
 export default routesConfig;
