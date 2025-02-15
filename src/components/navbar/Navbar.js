@@ -1,4 +1,3 @@
-// Navbar.js
 import React from "react";
 import {
   AppBar,
@@ -14,14 +13,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import SignupSigninModal from "./SignupSigninModal";
-import BuyMenu from "./BuyMenu";
+// import BuyMenu from "./BuyMenu"; // Commented out as requested
 import SellMenu from "./SellMenu";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar"; // Commented out as requested
 
-const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [anchorElBuy, setAnchorElBuy] = React.useState(null);
+  // const [anchorElBuy, setAnchorElBuy] = React.useState(null); // Commented out Buy Menu logic
   const [anchorElSell, setAnchorElSell] = React.useState(null);
   const [notification, setNotification] = React.useState({
     open: false,
@@ -42,6 +41,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
     });
   };
 
+  // Commented out search functionality as requested
+  /*
   const handleSearchSubmit = () => {
     if (searchQuery.trim()) {
       setNotification({
@@ -57,6 +58,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
       });
     }
   };
+  */
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
@@ -75,11 +77,13 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             Home
           </Link>
-          <BuyMenu
+          {/* <BuyMenu
             anchorEl={anchorElBuy}
             setAnchorEl={setAnchorElBuy}
             handleBuyMenuFilter={handleBuyMenuFilter}
-          />
+          /> */} 
+          {/* Commented out Buy Menu Section */}
+
           <SellMenu anchorEl={anchorElSell} setAnchorEl={setAnchorElSell} />
           <Link
             to="/about"
@@ -95,6 +99,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
           </Link>
         </Box>
 
+        {/* Commented out SearchBar section */}
+        {/* 
         <Box sx={{ flexGrow: 1, maxWidth: 400, marginRight: 3 }}>
           <SearchBar
             searchQuery={searchQuery}
@@ -102,6 +108,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, handleBuyMenuFilter }) => {
             handleSearchSubmit={handleSearchSubmit}
           />
         </Box>
+        */}
 
         {isLoggedIn ? (
           <UserMenu handleLogout={handleLogout} />

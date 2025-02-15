@@ -40,9 +40,9 @@ const UserSidebar = ({ setIsLoggedIn }) => {
               <ListItemText primary="Profile" />
             </ListItem>
             <Divider />
-            <ListItem button component={Link} to="/dashboard/my-listings">
+            {/* <ListItem button component={Link} to="/dashboard/my-listings">
               <ListItemText primary="My Listings" />
-            </ListItem>
+            </ListItem> */}
             <Divider />
             <ListItem button component={Link} to="/dashboard/appointments">
               <ListItemText primary="Appointments" />

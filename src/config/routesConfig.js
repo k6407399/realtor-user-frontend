@@ -18,6 +18,8 @@ const routesConfig = {
   formFields: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_FORM_FIELDS}`,
 
   properties: {
+    search: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_PROPERTIES_SEARCH}`,
+    filter: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_PROPERTIES_FILTER}`,
     land: {
       fetch: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_LAND_FETCH}`,
       fetchById: `${process.env.REACT_APP_BACKEND_URL}${process.env.REACT_APP_LAND_FETCH_BY_ID}`,

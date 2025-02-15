@@ -30,7 +30,7 @@ const PropertyModal = ({ modalOpen, closeModal, loadingDetails, propertyDetails 
     <Modal open={modalOpen} onClose={closeModal}>
       <Paper
         sx={{
-          width: "40%",
+          width: "30%",
           margin: "auto",
           marginTop: "5%",
           padding: "15px",
@@ -38,20 +38,42 @@ const PropertyModal = ({ modalOpen, closeModal, loadingDetails, propertyDetails 
           maxHeight: "85vh",
           overflowY: "auto",
           boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+          borderRadius: "12px", // Slightly rounded corners for a modern look
+          scrollbarWidth: "thin", // For Firefox
+          scrollbarColor: "rgba(0, 0, 0, 0.7) rgba(50, 50, 50, 0.3)", // Glassy black scrollbar
+          "&::-webkit-scrollbar": {
+            width: "6px", // Thin scrollbar
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "rgba(50, 50, 50, 0.3)", // Semi-transparent black track
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "rgba(0, 0, 0, 0.7)", // Glassy black scrollbar thumb
+            borderRadius: "10px", // Rounded edges
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            background: "rgba(0, 0, 0, 0.9)", // Darker black on hover
+          },
         }}
       >
         <IconButton
           onClick={closeModal}
           sx={{
             position: "absolute",
-            top: "10px",
-            right: "10px",
+            top: "8px",
+            right: "8px",
             backgroundColor: "#f44336",
             color: "white",
-            fontSize: "0.9rem",
-            width: "30px",
-            height: "30px",
-            ":hover": { backgroundColor: "#d32f2f" },
+            fontSize: "0.8rem",
+            width: "22px",
+            height: "22px",
+            borderRadius: "50%", // Fully round close button
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            "&:hover": {
+              backgroundColor: "#d32f2f", // Darker red on hover
+            },
           }}
         >
           <Close fontSize="small" />

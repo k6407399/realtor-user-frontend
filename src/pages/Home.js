@@ -14,7 +14,7 @@ import axios from "../api/axios";
 import routesConfig from "../config/routesConfig";
 import PropertyThumbnail from "../components/PropertyThumbnail";
 
-const Home = ({ handleBuyMenuFilter }) => {
+const Home = () => {
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [error, setError] = useState("");
@@ -48,12 +48,8 @@ const Home = ({ handleBuyMenuFilter }) => {
                 ...item,
                 type,
                 media: [
-                  ...(item.photos || []).map(
-                    (photo) => `${backendStaticUrl}${photo}`
-                  ),
-                  ...(item.videos || []).map(
-                    (video) => `${backendStaticUrl}${video}`
-                  ),
+                  ...(item.photos || []).map((photo) => `${backendStaticUrl}${photo}`),
+                  ...(item.videos || []).map((video) => `${backendStaticUrl}${video}`),
                 ],
                 title: `${item.propertyType} @ ${item.location}`,
               })) || []
@@ -61,8 +57,7 @@ const Home = ({ handleBuyMenuFilter }) => {
           });
 
         setProperties(combinedProperties);
-        setFilteredProperties(combinedProperties);
-        setError(combinedProperties.length === 0 ? "No properties found." : "");
+        applyFilters(combinedProperties, filters);
       } catch (err) {
         console.error("Error fetching properties:", err);
         setError("Error fetching properties. Please try again.");
@@ -75,33 +70,29 @@ const Home = ({ handleBuyMenuFilter }) => {
   const applyFilters = (properties, filters) => {
     const { propertyType, location, priceRange } = filters;
 
-    return properties.filter((property) => {
+    const filtered = properties.filter((property) => {
       const matchesType =
         !propertyType || property.type.toLowerCase() === propertyType.toLowerCase();
       const matchesLocation =
-        !location ||
-        property.location.toLowerCase().includes(location.toLowerCase());
+        !location || property.location.toLowerCase().includes(location.toLowerCase());
       const matchesPrice =
         !priceRange ||
         (priceRange === "<500000" && property.totalPrice < 500000) ||
-        (priceRange === "500001-1000000" &&
-          property.totalPrice >= 500001 &&
-          property.totalPrice <= 1000000) ||
-        (priceRange === "1000001-5000000" &&
-          property.totalPrice >= 1000001 &&
-          property.totalPrice <= 5000000) ||
+        (priceRange === "500001-1000000" && property.totalPrice >= 500001 && property.totalPrice <= 1000000) ||
+        (priceRange === "1000001-5000000" && property.totalPrice >= 1000001 && property.totalPrice <= 5000000) ||
         (priceRange === ">5000000" && property.totalPrice > 5000000);
 
       return matchesType && matchesLocation && matchesPrice;
     });
+
+    setFilteredProperties(filtered);
+    setError(filtered.length === 0 ? "No properties match your filters." : "");
   };
 
   const handleFilterChange = (field, value) => {
     const updatedFilters = { ...filters, [field]: value };
     setFilters(updatedFilters);
-    const filtered = applyFilters(properties, updatedFilters);
-    setFilteredProperties(filtered);
-    setError(filtered.length === 0 ? "No properties match your filters." : "");
+    applyFilters(properties, updatedFilters);
   };
 
   return (
@@ -116,8 +107,7 @@ const Home = ({ handleBuyMenuFilter }) => {
         }}
       >
         <marquee behavior="scroll" direction="left">
-          🔥 Hot Selling Listings: 1200 sqft Land in Whitefield | 🏡 3BHK Villa
-          in HSR Layout | 🌟 2BHK Flat in Koramangala | Check Now!
+          🔥 Hot Selling Listings: 1200 sqft Land in Whitefield | 🏡 3BHK Villa in HSR Layout | 🌟 2BHK Flat in Koramangala | Check Now!
         </marquee>
       </Box>
 
@@ -135,9 +125,7 @@ const Home = ({ handleBuyMenuFilter }) => {
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
           Explore Properties
         </Typography>
-        <Box
-          sx={{ display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap" }}
-        >
+        <Box sx={{ display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap" }}>
           {/* Property Type Dropdown */}
           <Select
             value={filters.propertyType}
@@ -175,18 +163,10 @@ const Home = ({ handleBuyMenuFilter }) => {
             sx={{ width: 200 }}
           >
             <MenuItem value="">All Prices</MenuItem>
-            <MenuItem value="<500000">
-              <CurrencyRupeeIcon fontSize="small" /> Less than 5 Lacs
-            </MenuItem>
-            <MenuItem value="500001-1000000">
-              <CurrencyRupeeIcon fontSize="small" /> 5 Lacs - 10 Lacs
-            </MenuItem>
-            <MenuItem value="1000001-5000000">
-              <CurrencyRupeeIcon fontSize="small" /> 10 Lacs - 50 Lacs
-            </MenuItem>
-            <MenuItem value=">5000000">
-              <CurrencyRupeeIcon fontSize="small" /> Above 50 Lacs
-            </MenuItem>
+            <MenuItem value="<500000"><CurrencyRupeeIcon fontSize="small" /> Less than 5 Lacs</MenuItem>
+            <MenuItem value="500001-1000000"><CurrencyRupeeIcon fontSize="small" /> 5 Lacs - 10 Lacs</MenuItem>
+            <MenuItem value="1000001-5000000"><CurrencyRupeeIcon fontSize="small" /> 10 Lacs - 50 Lacs</MenuItem>
+            <MenuItem value=">5000000"><CurrencyRupeeIcon fontSize="small" /> Above 50 Lacs</MenuItem>
           </Select>
         </Box>
       </Box>

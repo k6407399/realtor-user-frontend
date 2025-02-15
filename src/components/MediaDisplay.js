@@ -4,7 +4,6 @@ import {
   IconButton,
   Modal,
   Paper,
-  Typography,
 } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos, ZoomIn, Close } from "@mui/icons-material";
 
@@ -26,7 +25,7 @@ const MediaDisplay = ({ media, currentIndex, setCurrentIndex }) => {
             autoPlay={item.endsWith(".mp4")}
             muted
             loop
-            controls={false} // Disable controls in the main display
+            controls={false}
             alt={`Media ${index}`}
             sx={{
               display: currentIndex === index ? "block" : "none",
@@ -37,36 +36,6 @@ const MediaDisplay = ({ media, currentIndex, setCurrentIndex }) => {
             }}
           />
         ))}
-
-        {/* Navigation Buttons */}
-        {media?.length > 1 && (
-          <>
-            <IconButton
-              onClick={handlePrev}
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "10px",
-                transform: "translateY(-50%)",
-                color: "white",
-              }}
-            >
-              <ArrowBackIos />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
-              sx={{
-                position: "absolute",
-                top: "50%",
-                right: "10px",
-                transform: "translateY(-50%)",
-                color: "white",
-              }}
-            >
-              <ArrowForwardIos />
-            </IconButton>
-          </>
-        )}
 
         {/* Zoom Icon */}
         <IconButton
@@ -90,63 +59,86 @@ const MediaDisplay = ({ media, currentIndex, setCurrentIndex }) => {
       >
         <Paper
           sx={{
-            width: "80%",
-            maxWidth: "800px",
+            width: "600px", // Fixed width
+            height: "400px", // Fixed height
             padding: "15px",
             position: "relative",
             backgroundColor: "black",
-            borderRadius: "10px",
+            borderRadius: "5px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <IconButton
             onClick={() => setZoomModalOpen(false)}
             sx={{
               position: "absolute",
-              top: "10px",
-              right: "10px",
+              top: "5px",
+              right: "5px",
+              backgroundColor: "#f44336",
               color: "white",
-              backgroundColor: "red",
-              ":hover": { backgroundColor: "#d32f2f" },
-            }}
-          >
-            <Close />
-          </IconButton>
-
-          {/* Media Controls */}
-          <Box
-            sx={{
+              fontSize: "0.7rem",
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "20px",
-              marginTop: "20px",
+              "&:hover": { backgroundColor: "#d32f2f" },
             }}
           >
-            <IconButton onClick={handlePrev} sx={{ color: "white" }}>
-              <ArrowBackIos />
-            </IconButton>
+            <Close fontSize="small" />
+          </IconButton>
 
-            {media?.map((item, index) => (
-              <Box
-                key={index}
-                component={item.endsWith(".mp4") ? "video" : "img"}
-                src={item}
-                autoPlay={item.endsWith(".mp4")}
-                controls={item.endsWith(".mp4")}
-                alt={`Media ${index}`}
-                sx={{
-                  display: currentIndex === index ? "block" : "none",
-                  width: "100%",
-                  maxHeight: "500px",
-                  objectFit: "contain",
-                }}
-              />
-            ))}
+          {/* Navigation Buttons */}
+          <IconButton
+            onClick={handlePrev}
+            sx={{
+              position: "absolute",
+              left: "10px",
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              borderRadius: "50%",
+              padding: "5px",
+              "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+            }}
+          >
+            <ArrowBackIos />
+          </IconButton>
 
-            <IconButton onClick={handleNext} sx={{ color: "white" }}>
-              <ArrowForwardIos />
-            </IconButton>
-          </Box>
+          {media?.map((item, index) => (
+            <Box
+              key={index}
+              component={item.endsWith(".mp4") ? "video" : "img"}
+              src={item}
+              autoPlay={item.endsWith(".mp4")}
+              controls={item.endsWith(".mp4")}
+              controlsList="nodownload nofullscreen noremoteplayback"
+              alt={`Media ${index}`}
+              sx={{
+                display: currentIndex === index ? "block" : "none",
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+            />
+          ))}
+
+          <IconButton
+            onClick={handleNext}
+            sx={{
+              position: "absolute",
+              right: "10px",
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              borderRadius: "50%",
+              padding: "5px",
+              "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+            }}
+          >
+            <ArrowForwardIos />
+          </IconButton>
         </Paper>
       </Modal>
     </>

@@ -1,8 +1,17 @@
 import React from "react";
 import { Box, InputBase, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ searchQuery, setSearchQuery, handleSearchSubmit }) => {
+const SearchBar = ({ searchQuery, setSearchQuery }) => {
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigate(`/?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
     <Box
       sx={{

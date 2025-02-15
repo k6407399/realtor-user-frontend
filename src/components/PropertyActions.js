@@ -41,19 +41,12 @@ const PropertyActions = ({
         alignItems: "center",
       }}
     >
+      {/* WhatsApp Icon with Group Link */}
       <IconButton
-        onClick={handleFavoriteClick}
-        sx={{
-          width: "35px",
-          height: "35px",
-          borderRadius: "5px",
-          border: "1px solid white",
-          color: favorites ? "red" : "white",
-        }}
-      >
-        <Favorite />
-      </IconButton>
-      <IconButton
+        component="a"
+        href="https://chat.whatsapp.com/YOUR-GROUP-LINK" // Replace with actual WhatsApp group link
+        target="_blank"
+        rel="noopener noreferrer"
         sx={{
           width: "35px",
           height: "35px",
@@ -64,6 +57,8 @@ const PropertyActions = ({
       >
         <WhatsAppIcon />
       </IconButton>
+
+      {/* Show Details Button */}
       <Button
         variant="contained"
         size="small"
@@ -78,7 +73,13 @@ const PropertyActions = ({
       >
         Show Details
       </Button>
+
+      {/* Facebook Icon with Page/Group Link */}
       <IconButton
+        component="a"
+        href="https://www.facebook.com/YOUR-FACEBOOK-PAGE" // Replace with actual Facebook page/group link
+        target="_blank"
+        rel="noopener noreferrer"
         sx={{
           width: "35px",
           height: "35px",
@@ -89,6 +90,22 @@ const PropertyActions = ({
       >
         <FacebookIcon />
       </IconButton>
+
+      {/* Like & Wishlist Icons (Commented Out) */}
+      {/* 
+      <IconButton
+        onClick={handleFavoriteClick}
+        sx={{
+          width: "35px",
+          height: "35px",
+          borderRadius: "5px",
+          border: "1px solid white",
+          color: favorites ? "red" : "white",
+        }}
+      >
+        <Favorite />
+      </IconButton>
+
       <IconButton
         onClick={handleLikeClick}
         sx={{
@@ -100,7 +117,8 @@ const PropertyActions = ({
         }}
       >
         <ThumbUp />
-      </IconButton>
+      </IconButton> 
+      */}
     </Box>
   );
 };

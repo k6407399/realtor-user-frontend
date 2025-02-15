@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import MediaDisplay from "./MediaDisplay";
 import PropertyActions from "./PropertyActions";
 import PropertyModal from "./PropertyModal";
@@ -15,6 +15,10 @@ const PropertyThumbnail = ({ property, propertyType, userLoggedIn, openLoginModa
   const [modalOpen, setModalOpen] = useState(false);
   const [propertyDetails, setPropertyDetails] = useState(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
+
+  // Define valid media URLs
+  const backendStaticUrl = process.env.REACT_APP_BACKEND_URL.replace("/api/v1", "/static/");
+  const validMedia = (property.media || []).filter(media => media.startsWith(backendStaticUrl));
 
   const toggleFavorite = async () => {
     try {
@@ -86,17 +90,23 @@ const PropertyThumbnail = ({ property, propertyType, userLoggedIn, openLoginModa
           overflow: "hidden",
           borderRadius: "10px",
           boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
-          backgroundColor: property.media?.length ? "#f9f9f9" : "rgba(0,0,0,0.7)",
+          backgroundColor: validMedia.length ? "#f9f9f9" : "rgba(0,0,0,0.7)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <MediaDisplay
-          media={property.media}
-          currentIndex={currentMediaIndex}
-          setCurrentIndex={setCurrentMediaIndex}
-        />
+        {validMedia.length > 0 ? (
+          <MediaDisplay
+            media={validMedia}
+            currentIndex={currentMediaIndex}
+            setCurrentIndex={setCurrentMediaIndex}
+          />
+        ) : (
+          <Typography sx={{ color: "white", fontSize: "16px", fontWeight: "bold" }}>
+            No media available
+          </Typography>
+        )}
         <ViewCount count={property.viewCount || 100} />
         <ShareIcon property={property} />
         <PropertyActions
